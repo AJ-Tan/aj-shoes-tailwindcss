@@ -13,6 +13,10 @@
   @apply m-0 p-0 box-border scroll-smooth;
 }
 
+:target {
+  scroll-margin-top: 100px;
+}
+
 .btnIconTransform:hover img {
   @apply transform translate-x-1;
 }
