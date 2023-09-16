@@ -14,7 +14,7 @@ const Nav = () => {
             <li key={label}>
               <a
                 href={href}
-                className="font-montserrat leading-normal text-lg text-slate-gray block transition duration-300 transform hover:scale-105"
+                className="font-montserrat leading-normal text-lg text-slate-gray block transition duration-100 transform hover:scale-105 hover:font-semibold"
               >
                 {label}
               </a>

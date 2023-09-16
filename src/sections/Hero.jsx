@@ -7,6 +7,48 @@ import ShoeCard from '../components/ShoeCard';
 
 const Hero = () => {
   const [bigShoeImg, changeBigShoeImage] = useState(bigShoe1);
+  const [{ heroImgOpacity, heroImgTranslate, afterIndex }, setHeroImgClass] =
+    useState({
+      heroImgOpacity: 'opacity-0',
+      heroImgTranslate: 'translate-x-0',
+      beforeIndex: -1,
+      afterIndex: 0,
+    });
+
+  const toggleImg = (isVisible, index = -1) => {
+    if (index === afterIndex) return;
+
+    if (isVisible) {
+      setHeroImgClass((prev) => {
+        return {
+          ...prev,
+          heroImgOpacity: 'opacity-0',
+          heroImgTranslate:
+            prev.beforeIndex > prev.afterIndex
+              ? '-translate-x-10'
+              : 'translate-x-10',
+        };
+      });
+
+      setTimeout(() => {
+        setHeroImgClass((prev) => ({
+          ...prev,
+          heroImgOpacity: 'opacity-1',
+          heroImgTranslate: 'translate-x-0',
+        }));
+      }, 300);
+    } else {
+      setHeroImgClass(({ afterIndex }) => {
+        return {
+          heroImgOpacity: 'opacity-0',
+          heroImgTranslate:
+            afterIndex > index ? 'translate-x-10' : '-translate-x-10',
+          beforeIndex: afterIndex,
+          afterIndex: index,
+        };
+      });
+    }
+  };
 
   return (
     <section
@@ -47,7 +89,8 @@ const Hero = () => {
           alt="shoe collection"
           width={610}
           height={500}
-          className="object-contain relative z-10 transition duration-500"
+          className={`object-contain relative z-10 transition duration-500 transform ${heroImgOpacity} ${heroImgTranslate}`}
+          onLoad={() => toggleImg(true)}
         />
 
         <div className="flex sm:gap-6 gap-4 absolute -bottom-[5%] sm:left-[10%] max-sm:px-6">
@@ -57,6 +100,8 @@ const Hero = () => {
                 imgURL={shoe}
                 changeBigShoeImage={changeBigShoeImage}
                 bigShoeImg={bigShoeImg}
+                toggleImg={toggleImg}
+                index={index}
               />
             </div>
           ))}
