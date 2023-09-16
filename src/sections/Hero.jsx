@@ -8,12 +8,6 @@ import ShoeCard from '../components/ShoeCard';
 const Hero = () => {
   const [bigShoeImg, changeBigShoeImage] = useState(bigShoe1);
 
-  useEffect(() => {
-    const heroImg = document.getElementById('hero-img');
-
-    heroImg.classList.remove('opacity-0');
-  }, [bigShoeImg]);
-
   return (
     <section
       id="home"
@@ -53,7 +47,7 @@ const Hero = () => {
           alt="shoe collection"
           width={610}
           height={500}
-          className="object-contain relative z-10 transition duration-300"
+          className="object-contain relative z-10 transition duration-500"
         />
 
         <div className="flex sm:gap-6 gap-4 absolute -bottom-[5%] sm:left-[10%] max-sm:px-6">

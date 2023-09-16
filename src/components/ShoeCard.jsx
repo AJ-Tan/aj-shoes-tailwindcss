@@ -4,14 +4,7 @@ const ShoeCard = ({
   bigShoeImg,
 }) => {
   const handleClick = () => {
-    const heroImg = document.getElementById('hero-img');
-
-    if (bigShoe !== bigShoeImg) {
-      heroImg.classList.add('opacity-0');
-      setTimeout(() => {
-        changeBigShoeImage(bigShoe);
-      }, 300);
-    }
+    changeBigShoeImage(bigShoe);
   };
 
   return (
