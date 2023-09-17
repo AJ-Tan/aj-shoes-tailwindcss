@@ -11,11 +11,6 @@ import {
 import Nav from './components/Nav';
 
 const App = () => {
-  const observer = new IntersectionObserver((entries) => {
-    /* const entry = entries[0];
-    entry.target.classList.toggle */
-  });
-
   return (
     <main id="main" className="relative">
       <Nav />

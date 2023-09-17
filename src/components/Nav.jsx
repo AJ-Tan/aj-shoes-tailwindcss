@@ -27,7 +27,6 @@ const Nav = () => {
         ];
 
         if (top > -100 && top < 200) {
-          console.log(item.id, top);
           if (navLinkList.includes(item.id)) setLinkPosition(item.id);
         }
       });
