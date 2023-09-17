@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Button from '../components/Button';
 import { arrowRight } from '../assets/icons';
 import { statistics, shoes } from '../constants';
@@ -15,43 +15,46 @@ const Hero = () => {
       afterIndex: 0,
     });
 
-  const toggleImg = (isVisible, index = -1) => {
-    if (index === afterIndex) return;
+  const toggleImg = useCallback(
+    (isVisible, index) => {
+      if (index === afterIndex) return;
 
-    if (isVisible) {
-      setHeroImgClass((prev) => {
-        return {
-          ...prev,
-          heroImgOpacity: 'opacity-0',
-          heroImgTranslate:
-            prev.beforeIndex > prev.afterIndex
-              ? '-translate-x-10'
-              : 'translate-x-10',
-        };
-      });
+      if (isVisible) {
+        setHeroImgClass((prev) => {
+          return {
+            ...prev,
+            heroImgOpacity: 'opacity-0',
+            heroImgTranslate:
+              prev.beforeIndex > prev.afterIndex
+                ? '-translate-x-10'
+                : 'translate-x-10',
+          };
+        });
 
-      setTimeout(() => {
-        setHeroImgClass((prev) => ({
-          ...prev,
-          heroImgOpacity: 'opacity-1',
-          heroImgTranslate: 'translate-x-0',
-        }));
-      }, 300);
-    } else {
-      setHeroImgClass(({ afterIndex }) => {
-        return {
-          heroImgOpacity: 'opacity-0',
-          heroImgTranslate:
-            afterIndex > index ? 'translate-x-10' : '-translate-x-10',
-          beforeIndex: afterIndex,
-          afterIndex: index,
-        };
-      });
-    }
-  };
+        setTimeout(() => {
+          setHeroImgClass((prev) => ({
+            ...prev,
+            heroImgOpacity: 'opacity-1',
+            heroImgTranslate: 'translate-x-0',
+          }));
+        }, 300);
+      } else {
+        setHeroImgClass(({ afterIndex }) => {
+          return {
+            heroImgOpacity: 'opacity-0',
+            heroImgTranslate:
+              afterIndex > index ? 'translate-x-10' : '-translate-x-10',
+            beforeIndex: afterIndex,
+            afterIndex: index,
+          };
+        });
+      }
+    },
+    [bigShoeImg]
+  );
 
   return (
-    <section className="flex xl:flex-row flex-col min-h-screen gap-10 max-container">
+    <section className="flex xl:flex-row flex-col min-h-screen gap-10 max-container animate-fadeInUpToDown">
       <div className="relative xl:w-2/5 flex flex-col justify-center items-start w-full max-xl:padding-x pt-28">
         <p className="text-xl font-montserrat text-coral-red">
           Our Summer Collection
@@ -86,8 +89,8 @@ const Hero = () => {
           alt="shoe collection"
           width={610}
           height={500}
-          className={`object-contain relative z-10 transition duration-500 transform ${heroImgOpacity} ${heroImgTranslate}`}
-          onLoad={() => toggleImg(true)}
+          className={`object-contain relative z-10 transition duration-200 transform ${heroImgOpacity} ${heroImgTranslate}`}
+          onLoad={() => toggleImg(true, -1)}
         />
 
         <div className="flex sm:gap-6 gap-4 absolute -bottom-[5%] sm:left-[10%] max-sm:px-6">

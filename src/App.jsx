@@ -23,7 +23,7 @@ const App = () => {
       <section id="about-us" className="padding">
         <SuperQuality />
       </section>
-      <section id="services" className="padding py-10">
+      <section id="services" className="padding">
         <Services />
       </section>
       <section id="special-offer" className="padding">
